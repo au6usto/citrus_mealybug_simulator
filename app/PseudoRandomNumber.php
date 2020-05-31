@@ -6,9 +6,9 @@ class PseudoRandomNumber
 {
     private $seed;
 
-    private $randomNumber;
+    private $randomList;
 
-    private $u;
+    private $number;
 
     private $multiplier;
 
@@ -20,17 +20,17 @@ class PseudoRandomNumber
 
     public function __construct($seed, $multiplier, $aditive, $modulus) {
         $this->seed = $seed;
-        $this->randomNumber = $seed;
+        $this->number = $number;
         $this->multiplier = $multiplier;
         $this->aditive = $aditive;
         $this->modulus = $modulus;
     }
 
-    public function generate() {
+    public function generate() : array {
         for ($i=0; $i <= $iterations ; $i++) {
-            $this->randomNumber = ($this->multiplier * $this->randomNumber + $this->aditive) % $this->modulus;
-            $this->u = $thi->randomNumber / $this->modulus;
+            $this->randomNumberList[$i]['n'] = ($this->multiplier * $this->number + $this->aditive) % $this->modulus;
+            $this->randomNumberList[$i]['u'] = $thi->number / $this->modulus;
         }
-        return $this->randomNumber;
+        return $this->randomNumberList;
     }
 }
