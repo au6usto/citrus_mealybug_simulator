@@ -34,7 +34,7 @@ class PseudoRandomNumber
         return $this->randomNumberList->toArray();
     }
 
-    public function testNumbers($z) : bool {
+    public function testNumber($z) : bool {
         $n = $this->randomNumberList->count();
         $mean = $this->randomNumberList->sum('u') / $n;
         $statZ = (($mean - 0.5) * sqrt($n)) / sqrt(1/12);

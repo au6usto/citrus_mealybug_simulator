@@ -10,7 +10,7 @@ class PseudoRandomNumberController extends Controller
     public function getNumbers($seed, $amount) {
         $rn = new PseudoRandomNumber($seed, $amount);
         $rn->generate();
-        // $rn->test(43);
+        $rn->testNumber(43);
 
         return $rn->getList();
     }
