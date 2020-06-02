@@ -4,9 +4,11 @@ namespace App;
 
 class PseudoRandomNumber
 {
-    const MODULUS = 8;
-    const MULTIPLIER = 3;
-    const ADITIVE = 5;
+    //Método Congruencial Mixto
+    //(a * n_i + c) mod m
+    const MULTIPLIER = 5; //a
+    const ADITIVE = 7; //c
+    const MODULUS = 8; //m
 
     private $seed;
     private $amount;
@@ -21,7 +23,7 @@ class PseudoRandomNumber
     }
 
     public function generate() : void {
-        for ($i=0; $i <= $this->amount ; $i++) {
+        for ($i=0; $i < $this->amount ; $i++) {
             $this->randomNumber = (self::MULTIPLIER * $this->randomNumber + self::ADITIVE) % self::MODULUS;
             $this->randomNumberList->push([
                 'n' => $this->randomNumber,

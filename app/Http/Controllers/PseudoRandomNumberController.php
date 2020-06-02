@@ -7,8 +7,8 @@ use App\PseudoRandomNumber;
 
 class PseudoRandomNumberController extends Controller
 {
-    public function getNumbers($seed, $amount) {
-        $rn = new PseudoRandomNumber($seed, $amount);
+    public function getNumbers($amount, $seed) {
+        $rn = new PseudoRandomNumber($amount, $seed);
         $rn->generate();
         $rn->testNumber(43);
 
