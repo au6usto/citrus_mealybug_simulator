@@ -18,3 +18,9 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/random/{amount}/{seed}', 'PseudoRandomNumberController@getNumbers');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/simulador', 'HomeController@simulador')->name('simulador');
+Route::get('/resultado-simulador', 'HomeController@simuladorResults')->name('simulador_results');
