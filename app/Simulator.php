@@ -6,5 +6,7 @@ use App\ProbabilityNumber;
 
 class Simulator
 {
-    protected $months;
+    public function simulate12months()
+    {
+    }
 }
