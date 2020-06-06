@@ -8,7 +8,7 @@ class PseudoRandomNumber
     //(a * n_i + c) mod m
     const MULTIPLIER = 281; //a
     const ADITIVE = 11; //c
-    const MODULUS = 1000000000000; //m
+    const MODULUS = 10000000000; //m
 
     private $seed;
     private $amount;
@@ -17,7 +17,7 @@ class PseudoRandomNumber
 
     public function __construct($amount = null, $seed = null)
     {
-        $this->seed = $seed ?? 10;
+        $this->seed = $seed ?? rand();
         $this->randomNumber = $this->seed;
         $this->amount = $amount ?? 10;
         $this->uList = collect([]);

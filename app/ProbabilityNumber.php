@@ -2,31 +2,34 @@
 
 namespace App;
 
-use \App\PseudoRandomNumber;
+use App\PseudoRandomNumber;
 
 class ProbabilityNumber
 {
     //Distribuciones Probabilísticas
 
-    public function getNormal($mean, $stdDeviation) : float
+    public function getNormal(float $mean, float $deviation) : float
     {
         $pseudoRandomNumber = new PseudoRandomNumber(12);
         $pseudoRandomNumber->generate();
+        $uList = $pseudoRandomNumber->getList();
         $sum = 0;
         for ($i=0; $i < 12; $i++) {
-            $sum += $pseudoRandomNumber->getList()[$i];
+            $sum += $uList[$i];
         }
 
-        return $stdDeviation * ($sum - 6) + $mean;
+        $result = $deviation * ($sum - 6) + $mean;
+        return $result;
     }
 
-    public function getBinomial($nSamples, $probabilityOfSuccess) : float
+    public function getBinomial(int $nSamples, float $probabilityOfSuccess) : float
     {
         $pseudoRandomNumber = new PseudoRandomNumber($nSamples);
         $pseudoRandomNumber->generate();
+        $uList = $pseudoRandomNumber->getList();
         $result = 0;
         for ($i=0; $i < $nSamples; $i++) {
-            if ($pseudoRandomNumber->getList()[$i] <= $probabilityOfSuccess) {
+            if ($uList[$i] <= $probabilityOfSuccess) {
                 $result++;
             }
         }
@@ -34,10 +37,13 @@ class ProbabilityNumber
         return $result;
     }
 
-    public function getUniform($a, $b) : float
+    public function getUniform(float $a, float $b) : float
     {
         $pseudoRandomNumber = new PseudoRandomNumber(1);
         $pseudoRandomNumber->generate();
-        return $a + ($b - $a) * $pseudoRandomNumber->getList()[0];
+        $uList = $pseudoRandomNumber->getList();
+        $result = $a + (($b - $a) * $uList[0]);
+
+        return $result;
     }
 }
