@@ -21,6 +21,7 @@ Route::get('/random', 'PseudoRandomNumberController@getNumbers')->name('random')
 
 Auth::routes();
 
+Route::get('/', 'HomeController@index')->name('homee');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/simulador', 'HomeController@simulador')->name('simulador');
 Route::get('/resultado-simulador', 'HomeController@simuladorResults')->name('simulador_results');
