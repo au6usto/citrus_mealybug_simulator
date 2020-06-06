@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Simulator;
 
 class HomeController extends Controller
 {
@@ -34,5 +35,12 @@ class HomeController extends Controller
     public function simuladorResults()
     {
         return view('simulador_results');
+    }
+
+    public function simuladorChart()
+    {
+        $simulator = new Simulator();
+        $chart = $simulator->createChart();
+        return view('simulador_chart', compact('chart'));
     }
 }

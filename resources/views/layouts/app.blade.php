@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -40,6 +41,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('simulador_results') }}">{{ __('Resultados') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('simulador_chart') }}">{{ __('Gráfico') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('random') }}">{{ __('Random') }}</a>
