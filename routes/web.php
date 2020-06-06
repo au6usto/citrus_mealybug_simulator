@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/random/{amount}/{seed}', 'PseudoRandomNumberController@getNumbers');
+Route::get('/random', 'PseudoRandomNumberController@getNumbers');
 
 Auth::routes();
 

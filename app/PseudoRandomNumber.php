@@ -6,39 +6,41 @@ class PseudoRandomNumber
 {
     //Método Congruencial Mixto
     //(a * n_i + c) mod m
-    const MULTIPLIER = 5; //a
-    const ADITIVE = 7; //c
-    const MODULUS = 8; //m
+    const MULTIPLIER = 281; //a
+    const ADITIVE = 11; //c
+    const MODULUS = 1000000000000; //m
 
     private $seed;
     private $amount;
     private $randomNumber;
-    private $randomNumberList;
+    private $uList;
 
-    public function __construct($amount, $seed) {
-        $this->seed = $seed;
-        $this->randomNumber = $seed;
-        $this->amount = $amount;
-        $this->randomNumberList = collect([]);
+    public function __construct($amount = null, $seed = null)
+    {
+        $this->seed = $seed ?? 10;
+        $this->randomNumber = $this->seed;
+        $this->amount = $amount ?? 10;
+        $this->uList = collect([]);
     }
 
-    public function generate() : void {
+    public function generate() : void
+    {
         for ($i=0; $i < $this->amount ; $i++) {
             $this->randomNumber = (self::MULTIPLIER * $this->randomNumber + self::ADITIVE) % self::MODULUS;
-            $this->randomNumberList->push([
-                'n' => $this->randomNumber,
-                'u' => $this->randomNumber / self::MODULUS
-            ]);
+            $u = $this->randomNumber / self::MODULUS;
+            $this->uList->push($u);
         }
     }
 
-    public function getList() : array {
-        return $this->randomNumberList->toArray();
+    public function getList() : array
+    {
+        return $this->uList->toArray();
     }
 
-    public function testNumber($z) : bool {
-        $n = $this->randomNumberList->count();
-        $mean = $this->randomNumberList->sum('u') / $n;
+    public function testNumber($z) : bool
+    {
+        $n = $this->uList->count();
+        $mean = $this->uList->sum() / $n;
         $statZ = (($mean - 0.5) * sqrt($n)) / sqrt(1/12);
         return abs($statZ) < $z;
     }
