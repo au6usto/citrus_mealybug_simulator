@@ -39,8 +39,8 @@ class HomeController extends Controller
 
     public function simuladorChart()
     {
-        $simulator = new Simulator();
-        $chart = $simulator->createChart();
-        return view('simulador_chart', compact('chart'));
+        $simulation = new Simulator();
+        $simulation->simulate();
+        return view('simulador_chart', compact('simulation'));
     }
 }

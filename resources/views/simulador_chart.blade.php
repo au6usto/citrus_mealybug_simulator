@@ -4,7 +4,10 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <canvas id="canvas"></canvas>
+            <canvas id="canvasQty"></canvas>
+            <canvas id="canvasLQty"></canvas>
+            <canvas id="canvasCQty"></canvas>
+            <canvas id="canvasO"></canvas>
         </div>
     </div>
 </div>
@@ -13,42 +16,123 @@
     var config = {
         type: 'line',
         data: {
-            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
+            labels: ['Octubre', 'Noviembre', 'Diciembre', 'Enero', 'Febrero', 'Marzo'],
             datasets: [{
-                label: 'Vuelo de Machos',
-                backgroundColor: window.chartColors.red,
-                borderColor: window.chartColors.red,
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor()
-                ],
-                fill: false,
-            }, {
-                label: 'My Second dataset',
-                fill: false,
+                label: 'Cantidad de Machos',
                 backgroundColor: window.chartColors.blue,
                 borderColor: window.chartColors.blue,
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor()
-                ],
+                data: {!! $simulation->getPropertyPerPeriod('maleQty') !!},
+                fill: false,
+            },
+            {
+                label: 'Cantidad de Hembras',
+                backgroundColor: window.chartColors.red,
+                borderColor: window.chartColors.red,
+                data: {!! $simulation->getPropertyPerPeriod('femaleQty') !!},
+                fill: false,
             }]
         },
         options: {
             responsive: true,
             title: {
                 display: true,
-                text: 'Cochinillas - Vuelo de Machos'
+                text: 'Cochinillas'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Mes'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Cantidad Cochinillas'
+                    }
+                }]
+            }
+        }
+    };
+    var config2 = {
+        type: 'line',
+        data: {
+            labels: ['Octubre', 'Noviembre', 'Diciembre', 'Enero', 'Febrero', 'Marzo'],
+            datasets: [{
+                label: 'Larvas Macho',
+                backgroundColor: window.chartColors.blue,
+                borderColor: window.chartColors.blue,
+                data: {!! $simulation->getPropertyPerPeriod('maleLarvaeQty') !!},
+                fill: false,
+            },
+            {
+                label: 'Larvas Hembra',
+                backgroundColor: window.chartColors.red,
+                borderColor: window.chartColors.red,
+                data: {!! $simulation->getPropertyPerPeriod('femaleLarvaeQty') !!},
+                fill: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Cantidad de Larvas'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Mes'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Cantidad de Larvas'
+                    }
+                }]
+            }
+        }
+    };
+
+    var config3 = {
+        type: 'line',
+        data: {
+            labels: ['Octubre', 'Noviembre', 'Diciembre', 'Enero', 'Febrero', 'Marzo'],
+            datasets: [{
+                label: 'Cochinillas en Cáliz',
+                backgroundColor: window.chartColors.red,
+                borderColor: window.chartColors.red,
+                data: {!! $simulation->getPropertyPerPeriod('insectsInCalyx') !!},
+                fill: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Insectos en Cáliz'
             },
             tooltips: {
                 mode: 'index',
@@ -70,7 +154,52 @@
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Value'
+                        labelString: 'Cantidad en Cáliz'
+                    }
+                }]
+            }
+        }
+    };
+
+    var config4 = {
+        type: 'line',
+        data: {
+            labels: ['Octubre', 'Noviembre', 'Diciembre', 'Enero', 'Febrero', 'Marzo'],
+            datasets: [{
+                label: 'Porcentaje de Fruta Ocupado',
+                backgroundColor: window.chartColors.blue,
+                borderColor: window.chartColors.blue,
+                data: {!! $simulation->getPropertyPerPeriod('occupiedfruitPercentage') !!},
+                fill: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Fruta Ocupada'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Month'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Porcentaje'
                     }
                 }]
             }
@@ -78,67 +207,19 @@
     };
 
     window.onload = function() {
-        var ctx = document.getElementById('canvas').getContext('2d');
+        var ctx = document.getElementById('canvasQty').getContext('2d');
         window.myLine = new Chart(ctx, config);
+
+        var ctx = document.getElementById('canvasLQty').getContext('2d');
+        window.myLine = new Chart(ctx, config2);
+
+        var ctx = document.getElementById('canvasCQty').getContext('2d');
+        window.myLine = new Chart(ctx, config3);
+
+        var ctx = document.getElementById('canvasO').getContext('2d');
+        window.myLine = new Chart(ctx, config4);
     };
 
-    // document.getElementById('randomizeData').addEventListener('click', function() {
-    //     config.data.datasets.forEach(function(dataset) {
-    //         dataset.data = dataset.data.map(function() {
-    //             return randomScalingFactor();
-    //         });
-
-    //     });
-
-    //     window.myLine.update();
-    // });
-
     var colorNames = Object.keys(window.chartColors);
-    // document.getElementById('addDataset').addEventListener('click', function() {
-    //     var colorName = colorNames[config.data.datasets.length % colorNames.length];
-    //     var newColor = window.chartColors[colorName];
-    //     var newDataset = {
-    //         label: 'Dataset ' + config.data.datasets.length,
-    //         backgroundColor: newColor,
-    //         borderColor: newColor,
-    //         data: [],
-    //         fill: false
-    //     };
-
-    //     for (var index = 0; index < config.data.labels.length; ++index) {
-    //         newDataset.data.push(randomScalingFactor());
-    //     }
-
-    //     config.data.datasets.push(newDataset);
-    //     window.myLine.update();
-    // });
-
-    // document.getElementById('addData').addEventListener('click', function() {
-    //     if (config.data.datasets.length > 0) {
-    //         var month = MONTHS[config.data.labels.length % MONTHS.length];
-    //         config.data.labels.push(month);
-
-    //         config.data.datasets.forEach(function(dataset) {
-    //             dataset.data.push(randomScalingFactor());
-    //         });
-
-    //         window.myLine.update();
-    //     }
-    // });
-
-    // document.getElementById('removeDataset').addEventListener('click', function() {
-    //     config.data.datasets.splice(0, 1);
-    //     window.myLine.update();
-    // });
-
-    // document.getElementById('removeData').addEventListener('click', function() {
-    //     config.data.labels.splice(-1, 1); // remove the label first
-
-    //     config.data.datasets.forEach(function(dataset) {
-    //         dataset.data.pop();
-    //     });
-
-    //     window.myLine.update();
-    // });
 </script>
 @endsection

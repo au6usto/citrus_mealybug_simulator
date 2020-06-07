@@ -37,6 +37,11 @@ class PseudoRandomNumber
         return $this->uList->toArray();
     }
 
+    public function get($i) : float
+    {
+        return $this->uList->get($i);
+    }
+
     public function testNumber($z) : bool
     {
         $n = $this->uList->count();
