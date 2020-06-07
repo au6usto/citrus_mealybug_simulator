@@ -54,6 +54,16 @@
                 </tbody>
               </table>
         </div>
+        <br>
+        <div class="col-md-12">
+            <div class="alert alert-warning" role="alert">
+                Porcentaje invasión frutos después del segundo vuelo: 12%
+            </div>
+            <div class="alert alert-danger" role="alert">
+                Porcentaje invasión frutos después del tercer vuelo: 21%
+            </div>
+            <h1>Resultado final<span class="badge badge-secondary">Deberá iniciar tratamiento químico</span></h1>
+        </div>
     </div>
 </div>
 @endsection
