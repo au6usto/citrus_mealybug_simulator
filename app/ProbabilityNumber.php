@@ -41,8 +41,8 @@ class ProbabilityNumber
     {
         $pseudoRandomNumber = new PseudoRandomNumber(1);
         $pseudoRandomNumber->generate();
-        $uList = $pseudoRandomNumber->getList();
-        $result = $a + (($b - $a) * $uList[0]);
+        $Gu = $pseudoRandomNumber->get(0);
+        $result = $a + (($b - $a) * $Gu);
 
         return $result;
     }
