@@ -7,6 +7,7 @@ use App\PseudoRandomNumber;
 
 class SimulatedPeriod
 {
+    public $periodName;
     public $maleQty;
     public $femaleQty;
     public $totalLarvae;
@@ -14,9 +15,13 @@ class SimulatedPeriod
     public $femaleLarvaeQty;
     public $occupiedfruitPercentage;
     public $insectsInCalyx;
+    public $eggsTotal;
+    public $temperature;
     
-    public function __construct($maleQty, $femaleQty, $totalLarvae, $maleLarvaeQty, $femaleLarvaeQty, $occupiedfruitPercentage, $insectsInCalyx)
+    public function __construct($periodName, $periodMonth, $maleQty, $femaleQty, $totalLarvae, $maleLarvaeQty, $femaleLarvaeQty, $occupiedfruitPercentage, $insectsInCalyx, $eggsTotal, $temperature)
     {
+        $this->periodName = $periodName;
+        $this->periodMonth = $periodMonth;
         $this->maleQty = $maleQty;
         $this->femaleQty = $femaleQty;
         $this->totalLarvae = $totalLarvae;
@@ -24,5 +29,7 @@ class SimulatedPeriod
         $this->femaleLarvaeQty = $femaleLarvaeQty;
         $this->occupiedfruitPercentage = $occupiedfruitPercentage;
         $this->insectsInCalyx = $insectsInCalyx;
+        $this->eggsTotal = $eggsTotal;
+        $this->temperature = $temperature;
     }
 }

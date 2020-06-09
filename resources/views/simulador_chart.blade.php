@@ -4,10 +4,134 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <canvas id="canvasQty"></canvas>
-            <canvas id="canvasLQty"></canvas>
-            <canvas id="canvasCQty"></canvas>
-            <canvas id="canvasO"></canvas>
+            <div class="alert alert-warning" role="alert">
+                Porcentaje invasión frutos después del segundo vuelo: {{ round($simulation->getPropertyPerPeriod('occupiedfruitPercentage')[1]) }}%
+            </div>
+            <div class="alert alert-danger" role="alert">
+                Porcentaje invasión frutos después del tercer vuelo: {{ round($simulation->getPropertyPerPeriod('occupiedfruitPercentage')[3]) }}%
+            </div>
+            <h1>Resultado final <span class="badge badge-secondary">Deberá iniciar tratamiento químico</span></h1>
+        <table class="table table-striped table-bordered table-hover table-sm">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="row">Mes</th>
+                  @foreach($simulation->getPropertyPerPeriod('periodMonth') as $key => $month)
+                    @if($key !== 2)
+                    <th scope="col">{{ $month }}</th>
+                    @elseif($key === 1)
+                    <th colspan="2" scope="col">{{ $month }}</th>
+                    @endif
+                  @endforeach
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Temperatura</th>
+                @foreach($simulation->getPropertyPerPeriod('temperature') as $key => $temp)
+                @if($key !== 2)
+                <td scope="col">{{ $temp }}</td>
+                @elseif($key === 1)
+                <td colspan="2" scope="col">{{ $temp }}</td>
+                @endif
+                @endforeach
+              </tr>
+              <tr class="table-primary">
+                  <th scope="row">Vuelo</th>
+                @foreach($simulation->getPropertyPerPeriod('periodName') as $key =>  $name)
+                @if($key !== 2)
+                <td scope="col">{{ $name }}</td>
+                @elseif($key === 1)
+                <td colspan="2" scope="col">{{ $name }}</td>
+                @endif
+                @endforeach
+              </tr>
+              <tr>
+                  <th scope="row">Cantidad de Machos</th>
+                  @foreach($simulation->getPropertyPerPeriod('maleQty') as $key =>  $amount)
+                    @if($key !== 2)
+                    <td scope="col">{{ $amount }}</td>
+                    @elseif($key === 1)
+                    <td colspan="2" scope="col">{{ $amount }}</td>
+                    @endif
+                  @endforeach
+              </tr>
+              <tr>
+                <th scope="row">Cantidad de Hembras</th>
+                @foreach($simulation->getPropertyPerPeriod('femaleQty') as $key =>  $amount)
+                  @if($key !== 2)
+                  <td scope="col">{{ $amount }}</td>
+                  @elseif($key === 1)
+                  <td colspan="2" scope="col">{{ $amount }}</td>
+                  @endif
+                @endforeach
+            </tr>
+            <tr>
+                <th scope="row">Cantidad de Larvas Macho</th>
+                @foreach($simulation->getPropertyPerPeriod('maleLarvaeQty') as $key =>  $amount)
+                  @if($key !== 2)
+                  <td scope="col">{{ $amount }}</td>
+                  @elseif($key === 1)
+                  <td colspan="2" scope="col">{{ $amount }}</td>
+                  @endif
+                @endforeach
+            </tr>
+            <tr>
+                <th scope="row">Cantidad de Larvas Hembra</th>
+                @foreach($simulation->getPropertyPerPeriod('femaleLarvaeQty') as $key =>  $amount)
+                  @if($key !== 2)
+                  <td scope="col">{{ $amount }}</td>
+                  @elseif($key === 1)
+                  <td colspan="2" scope="col">{{ $amount }}</td>
+                  @endif
+                @endforeach
+            </tr>
+            <tr>
+                <th scope="row">Total Larvas</th>
+                @foreach($simulation->getPropertyPerPeriod('totalLarvae') as $key =>  $amount)
+                  @if($key !== 2)
+                  <td scope="col">{{ $amount }}</td>
+                  @elseif($key === 1)
+                  <td colspan="2" scope="col">{{ $amount }}</td>
+                  @endif
+                @endforeach
+            </tr>
+            <tr>
+                <th scope="row">Cantidad en Cáliz</th>
+                @foreach($simulation->getPropertyPerPeriod('insectsInCalyx') as $key =>  $amount)
+                  @if($key !== 2)
+                  <td scope="col">{{ $amount }}</td>
+                  @elseif($key === 1)
+                  <td colspan="2" scope="col">{{ $amount }}</td>
+                  @endif
+                @endforeach
+            </tr>
+            <tr>
+                <th scope="row">Porcentaje de Insectos en fruto</th>
+                @foreach($simulation->getPropertyPerPeriod('occupiedfruitPercentage') as $key =>  $amount)
+                  @if($key !== 2)
+                  <td scope="col">{{ $amount }}</td>
+                  @elseif($key === 1)
+                  <td colspan="2" scope="col">{{ $amount }}</td>
+                  @endif
+                @endforeach
+            </tr>
+            <tr>
+                <th scope="row">Cantidad de Huevos</th>
+                @foreach($simulation->getPropertyPerPeriod('eggsTotal') as $key =>  $amount)
+                  @if($key !== 2)
+                  <td scope="col">{{ $amount }}</td>
+                  @elseif($key === 1)
+                  <td colspan="2" scope="col">{{ $amount }}</td>
+                  @endif
+                @endforeach
+            </tr>
+            </tbody>
+          </table>
+          <canvas id="canvasQty"></canvas>
+                        <canvas id="canvasLQty"></canvas>
+                        <canvas id="canvasCQty"></canvas>
+                        <canvas id="canvasIC"></canvas>
+                        <canvas id="canvasEQty"></canvas>
         </div>
     </div>
 </div>
@@ -16,7 +140,7 @@
     var config = {
         type: 'line',
         data: {
-            labels: ['Octubre', 'Noviembre', 'Diciembre', 'Enero', 'Febrero', 'Marzo'],
+            labels: ['Octubre', 'Noviembre', 'Diciembre', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
             datasets: [{
                 label: 'Cantidad de Machos',
                 backgroundColor: window.chartColors.blue,
@@ -67,7 +191,7 @@
     var config2 = {
         type: 'line',
         data: {
-            labels: ['Octubre', 'Noviembre', 'Diciembre', 'Enero', 'Febrero', 'Marzo'],
+            labels: ['Octubre', 'Noviembre', 'Diciembre', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
             datasets: [{
                 label: 'Larvas Macho',
                 backgroundColor: window.chartColors.blue,
@@ -80,6 +204,13 @@
                 backgroundColor: window.chartColors.red,
                 borderColor: window.chartColors.red,
                 data: {!! $simulation->getPropertyPerPeriod('femaleLarvaeQty') !!},
+                fill: false,
+            },
+            {
+                label: 'Total',
+                backgroundColor: window.chartColors.green,
+                borderColor: window.chartColors.green,
+                data: {!! $simulation->getPropertyPerPeriod('totalLarvae') !!},
                 fill: false,
             }]
         },
@@ -119,11 +250,11 @@
     var config3 = {
         type: 'line',
         data: {
-            labels: ['Octubre', 'Noviembre', 'Diciembre', 'Enero', 'Febrero', 'Marzo'],
+            labels: ['Octubre', 'Noviembre', 'Diciembre', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
             datasets: [{
                 label: 'Cochinillas en Cáliz',
-                backgroundColor: window.chartColors.red,
-                borderColor: window.chartColors.red,
+                backgroundColor: window.chartColors.green,
+                borderColor: window.chartColors.green,
                 data: {!! $simulation->getPropertyPerPeriod('insectsInCalyx') !!},
                 fill: false,
             }]
@@ -164,11 +295,56 @@
     var config4 = {
         type: 'line',
         data: {
-            labels: ['Octubre', 'Noviembre', 'Diciembre', 'Enero', 'Febrero', 'Marzo'],
+            labels: ['Octubre', 'Noviembre', 'Diciembre', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+            datasets: [{
+                label: 'Cantidad de Huevos',
+                backgroundColor: window.chartColors.green,
+                borderColor: window.chartColors.green,
+                data: {!! $simulation->getPropertyPerPeriod('eggsTotal') !!},
+                fill: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Huevos'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Mes'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Cantidad Huevos'
+                    }
+                }]
+            }
+        }
+    };
+
+    var config5 = {
+        type: 'line',
+        data: {
+            labels: ['Octubre', 'Noviembre', 'Diciembre', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
             datasets: [{
                 label: 'Porcentaje de Fruta Ocupado',
-                backgroundColor: window.chartColors.blue,
-                borderColor: window.chartColors.blue,
+                backgroundColor: window.chartColors.green,
+                borderColor: window.chartColors.green,
                 data: {!! $simulation->getPropertyPerPeriod('occupiedfruitPercentage') !!},
                 fill: false,
             }]
@@ -177,7 +353,7 @@
             responsive: true,
             title: {
                 display: true,
-                text: 'Fruta Ocupada'
+                text: 'Insectos en Cáliz'
             },
             tooltips: {
                 mode: 'index',
@@ -199,7 +375,7 @@
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Porcentaje'
+                        labelString: 'Cantidad en Fruta'
                     }
                 }]
             }
@@ -216,8 +392,12 @@
         var ctx = document.getElementById('canvasCQty').getContext('2d');
         window.myLine = new Chart(ctx, config3);
 
-        var ctx = document.getElementById('canvasO').getContext('2d');
+        var ctx = document.getElementById('canvasEQty').getContext('2d');
         window.myLine = new Chart(ctx, config4);
+
+        var ctx = document.getElementById('canvasIC').getContext('2d');
+        window.myLine = new Chart(ctx, config5);
+
     };
 
     var colorNames = Object.keys(window.chartColors);
