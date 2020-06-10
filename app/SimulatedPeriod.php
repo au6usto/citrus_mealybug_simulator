@@ -17,8 +17,9 @@ class SimulatedPeriod
     public $insectsInCalyx;
     public $eggsTotal;
     public $temperature;
+    public $fruitDamaged;
     
-    public function __construct($periodName, $periodMonth, $maleQty, $femaleQty, $totalLarvae, $maleLarvaeQty, $femaleLarvaeQty, $occupiedfruitPercentage, $insectsInCalyx, $eggsTotal, $temperature)
+    public function __construct($periodName, $periodMonth, $maleQty, $femaleQty, $totalLarvae, $maleLarvaeQty, $femaleLarvaeQty, $occupiedfruitPercentage, $insectsInCalyx, $eggsTotal, $temperature, $fruitDamaged)
     {
         $this->periodName = $periodName;
         $this->periodMonth = $periodMonth;
@@ -31,5 +32,6 @@ class SimulatedPeriod
         $this->insectsInCalyx = $insectsInCalyx;
         $this->eggsTotal = $eggsTotal;
         $this->temperature = $temperature;
+        $this->fruitDamaged = $fruitDamaged;
     }
 }
