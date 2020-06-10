@@ -29,9 +29,9 @@
                 <th scope="row">Temperatura</th>
                 @foreach($simulation->getPropertyPerPeriod('temperature') as $key => $temp)
                 @if($key !== 2)
-                <td scope="col">{{ $temp }}</td>
+                <td scope="col">{{ number_format($temp, 2, ',', '.') }}</td>
                 @elseif($key === 1)
-                <td colspan="2" scope="col">{{ $temp }}</td>
+                <td colspan="2" scope="col">{{ number_format($temp, 2, ',', '.') }}</td>
                 @endif
                 @endforeach
               </tr>
@@ -49,9 +49,9 @@
                   <th scope="row">Cantidad de Machos</th>
                   @foreach($simulation->getPropertyPerPeriod('maleQty') as $key =>  $amount)
                     @if($key !== 2)
-                    <td scope="col">{{ $amount }}</td>
+                    <td scope="col">{{ number_format($amount, 2, ',', '.') }}</td>
                     @elseif($key === 1)
-                    <td colspan="2" scope="col">{{ $amount }}</td>
+                    <td colspan="2" scope="col">{{ number_format($amount, 2, ',', '.') }}</td>
                     @endif
                   @endforeach
               </tr>
@@ -59,9 +59,9 @@
                 <th scope="row">Cantidad de Hembras</th>
                 @foreach($simulation->getPropertyPerPeriod('femaleQty') as $key =>  $amount)
                   @if($key !== 2)
-                  <td scope="col">{{ $amount }}</td>
+                  <td scope="col">{{ number_format($amount, 2, ',', '.') }}</td>
                   @elseif($key === 1)
-                  <td colspan="2" scope="col">{{ $amount }}</td>
+                  <td colspan="2" scope="col">{{ number_format($amount, 2, ',', '.') }}</td>
                   @endif
                 @endforeach
             </tr>
@@ -69,9 +69,9 @@
                 <th scope="row">Cantidad de Larvas Macho</th>
                 @foreach($simulation->getPropertyPerPeriod('maleLarvaeQty') as $key =>  $amount)
                   @if($key !== 2)
-                  <td scope="col">{{ $amount }}</td>
+                  <td scope="col">{{ number_format($amount, 2, ',', '.') }}</td>
                   @elseif($key === 1)
-                  <td colspan="2" scope="col">{{ $amount }}</td>
+                  <td colspan="2" scope="col">{{ number_format($amount, 2, ',', '.') }}</td>
                   @endif
                 @endforeach
             </tr>
@@ -79,9 +79,9 @@
                 <th scope="row">Cantidad de Larvas Hembra</th>
                 @foreach($simulation->getPropertyPerPeriod('femaleLarvaeQty') as $key =>  $amount)
                   @if($key !== 2)
-                  <td scope="col">{{ $amount }}</td>
+                  <td scope="col">{{ number_format($amount, 2, ',', '.') }}</td>
                   @elseif($key === 1)
-                  <td colspan="2" scope="col">{{ $amount }}</td>
+                  <td colspan="2" scope="col">{{ number_format($amount, 2, ',', '.') }}</td>
                   @endif
                 @endforeach
             </tr>
@@ -89,9 +89,9 @@
                 <th scope="row">Total Larvas</th>
                 @foreach($simulation->getPropertyPerPeriod('totalLarvae') as $key =>  $amount)
                   @if($key !== 2)
-                  <td scope="col">{{ $amount }}</td>
+                  <td scope="col">{{ number_format($amount, 2, ',', '.') }}</td>
                   @elseif($key === 1)
-                  <td colspan="2" scope="col">{{ $amount }}</td>
+                  <td colspan="2" scope="col">{{ number_format($amount, 2, ',', '.') }}</td>
                   @endif
                 @endforeach
             </tr>
@@ -99,9 +99,9 @@
                 <th scope="row">Cantidad en Cáliz</th>
                 @foreach($simulation->getPropertyPerPeriod('insectsInCalyx') as $key =>  $amount)
                   @if($key !== 2)
-                  <td scope="col">{{ $amount }}</td>
+                  <td scope="col">{{ number_format($amount, 2, ',', '.') }}</td>
                   @elseif($key === 1)
-                  <td colspan="2" scope="col">{{ $amount }}</td>
+                  <td colspan="2" scope="col">{{ number_format($amount, 2, ',', '.') }}</td>
                   @endif
                 @endforeach
             </tr>
@@ -109,9 +109,9 @@
                 <th scope="row">Porcentaje de Insectos en fruto</th>
                 @foreach($simulation->getPropertyPerPeriod('occupiedfruitPercentage') as $key =>  $amount)
                   @if($key !== 2)
-                  <td scope="col">{{ $amount }}</td>
+                  <td scope="col">{{ number_format($amount, 2, ',', '.') }}</td>
                   @elseif($key === 1)
-                  <td colspan="2" scope="col">{{ $amount }}</td>
+                  <td colspan="2" scope="col">{{ number_format($amount, 2, ',', '.') }}</td>
                   @endif
                 @endforeach
             </tr>
@@ -119,9 +119,9 @@
                 <th scope="row">Cantidad de Huevos</th>
                 @foreach($simulation->getPropertyPerPeriod('eggsTotal') as $key =>  $amount)
                   @if($key !== 2)
-                  <td scope="col">{{ $amount }}</td>
+                  <td scope="col">{{ number_format($amount, 2, ',', '.') }}</td>
                   @elseif($key === 1)
-                  <td colspan="2" scope="col">{{ $amount }}</td>
+                  <td colspan="2" scope="col">{{ number_format($amount, 2, ',', '.') }}</td>
                   @endif
                 @endforeach
             </tr>

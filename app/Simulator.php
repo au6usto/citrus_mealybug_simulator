@@ -68,18 +68,18 @@ class Simulator
 
         //Frutos ocupados por mes
         $this->occupiedFruitPerMonth = collect([
-            11 => ['mean' => 13.14, 'deviation' => 3.9795],
-            12 => ['mean' => 13.14, 'deviation' => 3.9795],
-            1 => ['mean' => 5.635, 'deviation' => 22.545],
-            2 => ['mean' => 0.0005, 'deviation' => 0.215]
+            11 => ['a' => 13.14, 'b' => 3.9795],
+            12 => ['a' => 13.14, 'b' => 3.9795],
+            1 => ['a' => 5.635, 'b' => 22.545],
+            2 => ['a' => 0.0005, 'b' => 0.215]
         ]);
 
         //Insectos en cáliz por mes
         $this->insectsInCalyxPerMonth = collect([
-            11 => ['mean' => 0.0215, 'deviation' => 0.9913],
-            12 => ['mean' => 0.0215, 'deviation' => 0.9913],
-            1 => ['mean' => 0.0002, 'deviation' => 0.0892],
-            2 => ['mean' => 0.008, 'deviation' => 13.806]
+            11 => ['a' => 0.0215, 'b' => 0.9913],
+            12 => ['a' => 0.0215, 'b' => 0.9913],
+            1 => ['a' => 0.0002, 'b' => 0.0892],
+            2 => ['a' => 0.008, 'b' => 13.806]
         ]);
     }
 
@@ -108,11 +108,11 @@ class Simulator
                     //Cantidad de machos del período anterior
                     $maleQtyFromLastPeriod = $this->simulatedPeriodsList->get($i - 1)->maleQty;
                     //Porcentaje de fruto ocupado
-                    $occupiedFruitPercentage = $occupiedPeriod['mean'] * $maleQtyFromLastPeriod + $occupiedPeriod['deviation'];
+                    $occupiedFruitPercentage = $occupiedPeriod['a'] * $maleQtyFromLastPeriod + $occupiedPeriod['b'];
                 } elseif ($this->month !== 10 && $this->occupiedFruitPerMonth->get($this->month) !== null) { //exponenciales
                     $occupiedPeriod = $this->occupiedFruitPerMonth->get($this->month);
                     $maleQtyFromLastPeriod = $this->simulatedPeriodsList->get($i - 1)->maleQty;
-                    $occupiedFruitPercentage = $occupiedPeriod['mean'] * log($maleQtyFromLastPeriod) + $occupiedPeriod['deviation'];
+                    $occupiedFruitPercentage = $occupiedPeriod['a'] * log($maleQtyFromLastPeriod) + $occupiedPeriod['b'];
                 } else {
                     $occupiedFruitPercentage = 0;
                 }
@@ -121,7 +121,7 @@ class Simulator
                 if ($this->month === 2) {//lineales
                     $occupiedPeriod = $this->insectsInCalyxPerMonth->get($this->month);
                     $maleQtyFromLastPeriod = $this->simulatedPeriodsList->get($i - 1)->maleQty;
-                    $insectsInCalyx = $occupiedPeriod['mean'] * $maleQtyFromLastPeriod + $occupiedPeriod['deviation'];
+                    $insectsInCalyx = $occupiedPeriod['a'] * $maleQtyFromLastPeriod + $occupiedPeriod['b'];
                 } else {
                     $insectsInCalyx = 0;
                 }
@@ -187,7 +187,7 @@ class Simulator
         
         $probs = collect([0.4, 0.8, 1]);
 
-        $p = $probs->first(function ($value, $key) use ($Gu) {
+        $p = $probs->first(function ($value) use ($Gu) {
             return $Gu < $value;
         });
 
