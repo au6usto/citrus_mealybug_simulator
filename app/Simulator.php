@@ -127,7 +127,7 @@ class Simulator
                 }
                 
                 //Cantidad de Insectos en cáliz
-                if ($this->month === 2) {//lineales
+                if (!in_array($this->month, [11, 12])) {//lineales
                     $insectsInCalyx = $occupiedPeriod['a'] * $maleQtyFromLastPeriod + $occupiedPeriod['b'];
                 } else {
                     $insectsInCalyx = 0;
