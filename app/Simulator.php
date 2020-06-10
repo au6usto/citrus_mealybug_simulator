@@ -26,20 +26,22 @@ class Simulator
 
     private $simulatedPeriodsList;
 
+    private $occupiedFruitPercentage;
+
     public function __construct()
     {
         $this->probability = new ProbabilityNumber();
         $this->Gu = new PseudoRandomNumber(1);
 
         $this->periods = collect([
-            11 => ['name' => 'Primer Vuelo', 'month' => 'Octubre'],
-            12 => ['name' => 'Segundo Vuelo', 'month' => 'Noviembre/Diciembre'],
-            1 => ['name' => 'Segundo Vuelo', 'month' => 'Noviembre/Diciembre'],
-            2 => ['name' => 'Tercer Vuelo', 'month' => 'Enero'],
-            3 => ['name' => 'Cuarto Vuelo', 'month' => 'Febrero'],
-            4 => ['name' => 'Reducción de Población', 'month' => 'Marzo'],
-            5 => ['name' => 'Deceso', 'month' => 'Abril'],
-            6 => ['name' => 'Deceso', 'month' => 'Mayo'],
+            11 => ['name' => 'Primer Vuelo', 'month' => 'Noviembre'],
+            12 => ['name' => 'Segundo Vuelo', 'month' => 'Diciembre/Enero'],
+            1 => ['name' => 'Segundo Vuelo', 'month' => 'Diciembre/Enero'],
+            2 => ['name' => 'Tercer Vuelo', 'month' => 'Febrero'],
+            3 => ['name' => 'Cuarto Vuelo', 'month' => 'Marzo'],
+            4 => ['name' => 'Reducción de Población', 'month' => 'Abril'],
+            5 => ['name' => 'Deceso', 'month' => 'Mayo'],
+            6 => ['name' => 'Deceso', 'month' => 'Junio'],
         ]);
 
         $this->simulatedPeriodsList = collect([]);
@@ -73,7 +75,8 @@ class Simulator
             3 => ['a' => 0.008, 'b' => 8.5797], // 2° quincena de febrero
             4 => ['a' => 0.008, 'b' => 13.806], // 1° quincena marzo
             5 => ['a' => 0.0189, 'b' => 14.498], // 2° quincena marzo
-            6 => ['a' => 0.0114, 'b' => 10.27], // 1° quincena junio
+            6 => ['a' => 0.0189, 'b' => 14.498], // 1° quincena junio
+            7 => ['a' => 0.0114, 'b' => 10.27], // 1° quincena junio
         ]);
 
         //Insectos en cáliz por mes
@@ -86,10 +89,6 @@ class Simulator
             6 => ['a' => 0.0007, 'b' => 0.3281], // 1° abril
             7 => ['a' => 0.0002, 'b' => 0.1331], // 1° quincena junio
         ]);
-
-        $this->relationOccupiedDamage = collect([
-            'a'=> 0,7911, 'b' => -3,5608
-        ]);
     }
 
     //Simular 4 períodos
@@ -98,7 +97,7 @@ class Simulator
         $i = 0;
         foreach ($this->periods as $key => $period) {
             $this->month = $key;
-            if ($key === 12) {
+            if ($key === 1) {
                 $simulation = $this->simulatedPeriodsList->get($i - 1);
             } else {
                 $this->calculateTemperature();
@@ -110,27 +109,26 @@ class Simulator
                 $femaleLarvaeQty = $larvaeQty * $this->femaleMaleLarvaeRatio();
                 //Cantidad de Larvas Macho
                 $maleLarvaeQty = $larvaeQty - $femaleLarvaeQty;
+                //Porcentaje ocupado de la planta
+                $occupiedPeriod = $this->occupiedFruitPerMonth->get($this->calculateAfflictedMonth());
 
                 //Cantidad de Fruta Ocupada
-                if ($this->month === 2) {//lineales
-                    $occupiedPeriod = $this->occupiedFruitPerMonth->get($this->month);
+                if ($this->month === 1) {//lineales
                     //Cantidad de machos del período anterior
-                    $maleQtyFromLastPeriod = $this->simulatedPeriodsList->get($i - 2)->maleQty;
-                    //Porcentaje de fruto ocupado
-                    $occupiedFruitPercentage = $occupiedPeriod['mean'] * $maleQtyFromLastPeriod + $occupiedPeriod['deviation'];
-                } elseif ($this->month !== 10 && $this->occupiedFruitPerMonth->get($this->month) !== null) { //exponenciales
-                    $occupiedPeriod = $this->occupiedFruitPerMonth->get($this->month);
                     $maleQtyFromLastPeriod = $this->simulatedPeriodsList->get($i - 1)->maleQty;
-                    $occupiedFruitPercentage = $occupiedPeriod['mean'] * log($maleQtyFromLastPeriod) + $occupiedPeriod['deviation'];
+                    $this->occupiedFruitPercentage = $occupiedPeriod['a'] * log($maleQtyFromLastPeriod) + $occupiedPeriod['b'];
+                } elseif (!in_array($this->month, [11, 12])) { //exponenciales
+                    //Cantidad de machos del período anterior
+                    $maleQtyFromLastPeriod = $this->simulatedPeriodsList->get($i - 1)->maleQty;
+                    //Porcentaje de fruto ocupado
+                    $this->occupiedFruitPercentage = $occupiedPeriod['a'] * $maleQtyFromLastPeriod + $occupiedPeriod['b'];
                 } else {
-                    $occupiedFruitPercentage = 0;
+                    $this->occupiedFruitPercentage = 0;
                 }
-
+                
                 //Cantidad de Insectos en cáliz
                 if ($this->month === 2) {//lineales
-                    $occupiedPeriod = $this->insectsInCalyxPerMonth->get($this->month);
-                    $maleQtyFromLastPeriod = $this->simulatedPeriodsList->get($i - 1)->maleQty;
-                    $insectsInCalyx = $occupiedPeriod['mean'] * $maleQtyFromLastPeriod + $occupiedPeriod['deviation'];
+                    $insectsInCalyx = $occupiedPeriod['a'] * $maleQtyFromLastPeriod + $occupiedPeriod['b'];
                 } else {
                     $insectsInCalyx = 0;
                 }
@@ -146,14 +144,29 @@ class Simulator
                     $larvaeQty,
                     $maleLarvaeQty,
                     $femaleLarvaeQty,
-                    $occupiedFruitPercentage,
+                    $this->occupiedFruitPercentage,
                     $insectsInCalyx,
                     $eggsTotal,
-                    $this->temperature
+                    $this->temperature,
+                    $this->calculateFruitDamage()
                 );
             }
             $this->simulatedPeriodsList->push($simulation);
             $i++;
+        }
+    }
+
+    private function calculateAfflictedMonth() : int
+    {
+        switch ($this->month) {
+            case 11:
+                return 1;
+            case 12:
+                return 2;
+            case 1:
+                return 2;
+            default:
+                return $this->month + 1;
         }
     }
 
@@ -186,6 +199,12 @@ class Simulator
     private function calculateFemaleQty() : float
     {
         return  $this->maleQty * $this->FemaleMaleRatio();
+    }
+
+    private function calculateFruitDamage()
+    {
+        $fruitDamaged = 0.7911 * $this->occupiedFruitPercentage - 3.5608;
+        return $fruitDamaged > 0 ? $fruitDamaged : 0;
     }
 
     //Calcular Hembras con Huevos

@@ -41,6 +41,7 @@ class HomeController extends Controller
     {
         $simulation = new Simulator();
         $simulation->simulate();
+        // dd($simulation->getPropertyPerPeriod('occupiedfruitPercentage'));
         return view('simulador_chart', compact('simulation'));
     }
 }

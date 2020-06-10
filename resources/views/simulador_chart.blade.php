@@ -5,12 +5,16 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="alert alert-warning" role="alert">
-                Porcentaje invasión frutos después del segundo vuelo: {{ round($simulation->getPropertyPerPeriod('occupiedfruitPercentage')[1]) }}%
+                Porcentaje invasión frutos después del segundo vuelo: {{ round($simulation->getPropertyPerPeriod('fruitDamaged')[4]) }}%
             </div>
-            <div class="alert alert-danger" role="alert">
-                Porcentaje invasión frutos después del tercer vuelo: {{ round($simulation->getPropertyPerPeriod('occupiedfruitPercentage')[3]) }}%
+            <div class="alert alert-success" role="alert">
+                Porcentaje invasión frutos después del tercer vuelo: {{ round($simulation->getPropertyPerPeriod('fruitDamaged')[5]) }}%
             </div>
-            <h1>Resultado final <span class="badge badge-secondary">Deberá iniciar tratamiento químico</span></h1>
+            @if (round($simulation->getPropertyPerPeriod('fruitDamaged')[5]) >= 20)
+            <h1>Resultado final <span class="badge badge-danger">Deberá iniciar tratamiento químico</span></h1>
+            @else
+            <h1>Resultado final <span class="badge badge-success">No es necesario que comience un tratamiendo químico</span></h1>
+            @endif
         <table class="table table-striped table-bordered table-hover table-sm">
             <thead class="thead-dark">
               <tr>
@@ -96,8 +100,18 @@
                 @endforeach
             </tr>
             <tr>
-                <th scope="row">Cantidad en Cáliz</th>
+                <th scope="row">Cantidad de insectos en Cáliz</th>
                 @foreach($simulation->getPropertyPerPeriod('insectsInCalyx') as $key =>  $amount)
+                  @if($key !== 2)
+                  <td scope="col">{{ $amount }}</td>
+                  @elseif($key === 1)
+                  <td colspan="2" scope="col">{{ $amount }}</td>
+                  @endif
+                @endforeach
+            </tr>
+            <tr>
+                <th scope="row">Cantidad de Huevos</th>
+                @foreach($simulation->getPropertyPerPeriod('eggsTotal') as $key =>  $amount)
                   @if($key !== 2)
                   <td scope="col">{{ $amount }}</td>
                   @elseif($key === 1)
@@ -115,9 +129,9 @@
                   @endif
                 @endforeach
             </tr>
-            <tr>
-                <th scope="row">Cantidad de Huevos</th>
-                @foreach($simulation->getPropertyPerPeriod('eggsTotal') as $key =>  $amount)
+            <tr class="table-danger">
+                <th scope="row">Porcentaje de Fruta Dañada</th>
+                @foreach($simulation->getPropertyPerPeriod('fruitDamaged') as $key =>  $amount)
                   @if($key !== 2)
                   <td scope="col">{{ $amount }}</td>
                   @elseif($key === 1)
@@ -346,6 +360,13 @@
                 backgroundColor: window.chartColors.green,
                 borderColor: window.chartColors.green,
                 data: {!! $simulation->getPropertyPerPeriod('occupiedfruitPercentage') !!},
+                fill: false,
+            },
+            {
+                label: 'Porcentaje de Fruta Dañada',
+                backgroundColor: window.chartColors.red,
+                borderColor: window.chartColors.red,
+                data: {!! $simulation->getPropertyPerPeriod('fruitDamaged') !!},
                 fill: false,
             }]
         },
