@@ -113,9 +113,9 @@
                 <th scope="row">Cantidad de Huevos</th>
                 @foreach($simulation->getPropertyPerPeriod('eggsTotal') as $key =>  $amount)
                   @if($key !== 2)
-                  <td scope="col">{{ $amount }}</td>
+                  <td scope="col">{{ number_format($amount, 2, ',', '.') }}</td>
                   @elseif($key === 1)
-                  <td colspan="2" scope="col">{{ $amount }}</td>
+                  <td colspan="2" scope="col">{{ number_format($amount, 2, ',', '.') }}</td>
                   @endif
                 @endforeach
             </tr>

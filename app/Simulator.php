@@ -97,12 +97,12 @@ class Simulator
         $i = 0;
         foreach ($this->periods as $key => $period) {
             $this->month = $key;
+            $this->calculateTemperature();
+            $this->eggsPerOvisac();
+            $this->calculateMaleQty();
             if ($key === 1) {
                 $simulation = $this->simulatedPeriodsList->get($i - 1);
             } else {
-                $this->calculateTemperature();
-                $this->eggsPerOvisac();
-                $this->calculateMaleQty();
                 $femaleQty = $this->calculateFemaleQty();
                 $larvaeQty = $this->calculateLarvaeQty();
                 //Cantidad de Larvas Hembra
@@ -263,6 +263,9 @@ class Simulator
 
     public function getPropertyPerPeriod($name)
     {
+        if ($name === 'eggsTotal') {
+            return collect([0, 0])->concat($this->simulatedPeriodsList->pluck($name)->except([6, 7]));
+        }
         return $this->simulatedPeriodsList->pluck($name);
     }
 }
