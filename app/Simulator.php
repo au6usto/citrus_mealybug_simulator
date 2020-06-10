@@ -68,23 +68,23 @@ class Simulator
 
         //Frutos ocupados por mes
         $this->occupiedFruitPerMonth = collect([
-            1 => ['a' => 13.47, 'b' => 3.9795], //enero => ln
-            2 => ['a' => 5.5655, 'b' => -22.545], // 1° quincena de febrero => ln
-            3 => ['a' => 0.008, 'b' => 8.5797], // 2° quincena de febrero
-            4 => ['a' => 0.008, 'b' => 13.806], // 1° quincena marzo
-            5 => ['a' => 0.0189, 'b' => 14.498], // 2° quincena marzo
-            6 => ['a' => 0.0114, 'b' => 10.27], // 1° quincena junio
+            1 => ['a' => 13.47, 'b' => 3.9795], //enero => ln  ----> vuelo noviembre
+            2 => ['a' => 5.5655, 'b' => -22.545], // 1° quincena de febrero => ln  ----> vuelo diciembre enero
+            3 => ['a' => 0.008, 'b' => 8.5797], // 2° quincena de febrero  ----> vuelo febrero
+            4 => ['a' => 0.008, 'b' => 13.806], // 1° quincena marzo  ----> vuelo febrero
+            5 => ['a' => 0.0189, 'b' => 14.498], // 2° quincena marzo  ----> vuelo marzo
+            6 => ['a' => 0.0114, 'b' => 10.27], // 1° quincena junio  ----> vuelo marzo
         ]);
 
         //Insectos en cáliz por mes
         $this->insectsInCalyxPerMonth = collect([
-            1 => ['a' => 0.0215, 'b' => 0.9913], //enero
-            2 => ['a' => 0.00002, 'b' => 0.0892], // 1° quincena de febrero
-            3 => ['a' => 0.0005, 'b' => 0.0894], // 2° quincena de febrero
-            4 => ['a' => 0.0005, 'b' => 0.215], // 1° quincena marzo
-            5 => ['a' => 0.0009, 'b' => 0.3163], // 2° quincena marzo
-            6 => ['a' => 0.0007, 'b' => 0.3281], // 1° abril
-            7 => ['a' => 0.0002, 'b' => 0.1331], // 1° quincena junio
+            1 => ['a' => 0.0215, 'b' => 0.9913], //enero   ----> vuelo noviembre
+            2 => ['a' => 0.00002, 'b' => 0.0892], // 1° quincena de febrero  ----> vuelo diciembre enero
+            3 => ['a' => 0.0005, 'b' => 0.0894], // 2° quincena de febrero  ----> vuelo febrero
+            4 => ['a' => 0.0005, 'b' => 0.215], // 1° quincena marzo  ----> vuelo febrero
+            5 => ['a' => 0.0009, 'b' => 0.3163], // 2° quincena marzo  ----> vuelo marzo
+            6 => ['a' => 0.0007, 'b' => 0.3281], // 1° abril  ----> vuelo marzo
+            7 => ['a' => 0.0002, 'b' => 0.1331], // 1° quincena junio  ----> vuelo marzo
         ]);
 
         $this->relationOccupiedDamage = collect([
