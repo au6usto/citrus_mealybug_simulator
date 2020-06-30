@@ -283,11 +283,11 @@ class Simulator
 
     public function getLowFruitsLossInKg() : float
     {
-        return $this->plantsAmount * $this->plots * 17 * ($this->getPropertyPerPeriod('fruitDamaged')[4] / 100);
+        return $this->plantsAmount * $this->plots * 9 * ($this->getPropertyPerPeriod('fruitDamaged')[4] / 100);
     }
 
     public function getHighFruitsLossInKg() : float
     {
-        return $this->plantsAmount * $this->plots * 90 * ($this->getPropertyPerPeriod('fruitDamaged')[4] / 100);
+        return $this->plantsAmount * $this->plots * 55 * ($this->getPropertyPerPeriod('fruitDamaged')[4] / 100);
     }
 }
