@@ -2,9 +2,6 @@
 
 namespace App;
 
-use App\ProbabilityNumber;
-use App\PseudoRandomNumber;
-
 class SimulatedPeriod
 {
     public $periodName;

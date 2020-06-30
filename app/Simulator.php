@@ -28,10 +28,17 @@ class Simulator
 
     private $occupiedFruitPercentage;
 
-    public function __construct()
+    private $plots;
+
+    private $plantsAmount;
+
+    public function __construct($plantsAmount, $plots)
     {
         $this->probability = new ProbabilityNumber();
         $this->Gu = new PseudoRandomNumber(1);
+
+        $this->plantsAmount = $plantsAmount;
+        $this->plots = $plots;
 
         $this->periods = collect([
             11 => ['name' => 'Primer Vuelo', 'month' => 'Noviembre'],
@@ -203,7 +210,7 @@ class Simulator
 
     private function calculateFruitDamage()
     {
-        $fruitDamaged = 0.7911 * $this->occupiedFruitPercentage - 3.5608;
+        $fruitDamaged = (0.7911 * $this->occupiedFruitPercentage - 3.5608) + rand(0, 10);
         return $fruitDamaged > 0 ? $fruitDamaged : 0;
     }
 
@@ -267,5 +274,20 @@ class Simulator
             return collect([0, 0])->concat($this->simulatedPeriodsList->pluck($name)->except([6, 7]));
         }
         return $this->simulatedPeriodsList->pluck($name);
+    }
+
+    public function getPlantsAffected() : float
+    {
+        return $this->plantsAmount * $this->plots;
+    }
+
+    public function getLowFruitsLossInKg() : float
+    {
+        return $this->plantsAmount * $this->plots * 17 * ($this->getPropertyPerPeriod('fruitDamaged')[4] / 100);
+    }
+
+    public function getHighFruitsLossInKg() : float
+    {
+        return $this->plantsAmount * $this->plots * 90 * ($this->getPropertyPerPeriod('fruitDamaged')[4] / 100);
     }
 }

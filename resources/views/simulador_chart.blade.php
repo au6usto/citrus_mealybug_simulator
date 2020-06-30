@@ -5,12 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="alert alert-warning" role="alert">
-                Porcentaje invasión frutos después del segundo vuelo: {{ round($simulation->getPropertyPerPeriod('fruitDamaged')[4]) }}%
+                Porcentaje invasión frutos después del tercer vuelo: <b>{{ round($simulation->getPropertyPerPeriod('fruitDamaged')[4]) }}%</b><br>
+                Cantidad de plantas afectadas: <b>{{ round($simulation->getPlantsAffected()) }}</b><br>
+                Se podría perder entre <b>{{ round($simulation->getLowFruitsLossInKg()) }} kg</b> y <b>{{ round($simulation->getHighFruitsLossInKg()) }} kg</b> de Limón<br>
             </div>
-            <div class="alert alert-success" role="alert">
-                Porcentaje invasión frutos después del tercer vuelo: {{ round($simulation->getPropertyPerPeriod('fruitDamaged')[5]) }}%
-            </div>
-            @if (round($simulation->getPropertyPerPeriod('fruitDamaged')[5]) >= 20)
+            @if (round($simulation->getPropertyPerPeriod('fruitDamaged')[4]) >= 20)
             <h1>Resultado final <span class="badge badge-danger">Deberá iniciar tratamiento químico</span></h1>
             @else
             <h1>Resultado final <span class="badge badge-success">No es necesario que comience un tratamiendo químico</span></h1>
@@ -142,10 +141,10 @@
             </tbody>
           </table>
           <canvas id="canvasQty"></canvas>
-                        <canvas id="canvasLQty"></canvas>
-                        <canvas id="canvasCQty"></canvas>
-                        <canvas id="canvasIC"></canvas>
-                        <canvas id="canvasEQty"></canvas>
+            <canvas id="canvasLQty"></canvas>
+            <canvas id="canvasCQty"></canvas>
+            <canvas id="canvasIC"></canvas>
+            <canvas id="canvasEQty"></canvas>
         </div>
     </div>
 </div>
@@ -410,8 +409,8 @@
         var ctx = document.getElementById('canvasLQty').getContext('2d');
         window.myLine = new Chart(ctx, config2);
 
-        var ctx = document.getElementById('canvasCQty').getContext('2d');
-        window.myLine = new Chart(ctx, config3);
+        // var ctx = document.getElementById('canvasCQty').getContext('2d');
+        // window.myLine = new Chart(ctx, config3);
 
         var ctx = document.getElementById('canvasEQty').getContext('2d');
         window.myLine = new Chart(ctx, config4);

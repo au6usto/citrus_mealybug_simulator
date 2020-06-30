@@ -32,16 +32,21 @@ class HomeController extends Controller
         return view('simulador');
     }
 
+    public function simuladorPrototype()
+    {
+        return view('simulador_prototype');
+    }
+
     public function simuladorResults()
     {
         return view('simulador_results');
     }
 
-    public function simuladorChart()
+    public function simuladorChart(Request $request)
     {
-        $simulation = new Simulator();
+        $simulation = new Simulator($request->plantsAmount, $request->plots);
         $simulation->simulate();
-        // dd($simulation->getPropertyPerPeriod('occupiedfruitPercentage'));
+
         return view('simulador_chart', compact('simulation'));
     }
 }

@@ -24,5 +24,5 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('homee');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/simulador', 'HomeController@simulador')->name('simulador');
-Route::get('/resultado-simulador', 'HomeController@simuladorResults')->name('simulador_results');
-Route::get('/grafico-simulador', 'HomeController@simuladorChart')->name('simulador_chart');
+Route::get('/simulador_prototype', 'HomeController@simuladorPrototype')->name('simulador_prototype');
+Route::post('/resultado_simulador', 'HomeController@simuladorChart')->name('simulador_results');
