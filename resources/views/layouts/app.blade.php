@@ -41,9 +41,9 @@
                             {{-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('simulador_prototype') }}">{{ __('Prototipo') }}</a>
                             </li> --}}
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('simulador') }}">{{ __('Simulador') }}</a>
-                            </li>
+                            </li> --}}
                             {{-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('simulador_results') }}">{{ __('Resultados') }}</a>
                             </li> --}}

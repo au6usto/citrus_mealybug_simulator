@@ -9,7 +9,7 @@
                 Cantidad de plantas afectadas: <b>{{ round($simulation->getPlantsAffected()) }}</b><br>
                 Se podría perder entre <b>{{ round($simulation->getLowFruitsLossInKg()) }} kg</b> y <b>{{ round($simulation->getHighFruitsLossInKg()) }} kg</b> de Limón<br>
             </div>
-            @if (round($simulation->getPropertyPerPeriod('fruitDamaged')[4]) >= 20)
+            @if ($simulation->isAboveDamageLimit())
             <h1>Resultado final <span class="badge badge-danger">Deberá iniciar tratamiento químico</span></h1>
             @else
             <h1>Resultado final <span class="badge badge-success">No es necesario que comience un tratamiendo químico</span></h1>

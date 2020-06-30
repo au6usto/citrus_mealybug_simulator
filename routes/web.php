@@ -21,8 +21,8 @@ Route::get('/random', 'PseudoRandomNumberController@getNumbers')->name('random')
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('homee');
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home2');
 Route::get('/simulador', 'HomeController@simulador')->name('simulador');
 Route::get('/simulador_prototype', 'HomeController@simuladorPrototype')->name('simulador_prototype');
 Route::post('/resultado_simulador', 'HomeController@simuladorChart')->name('simulador_results');

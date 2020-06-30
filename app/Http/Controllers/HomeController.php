@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('simulador');
     }
 
     public function simulador()
@@ -44,7 +44,7 @@ class HomeController extends Controller
 
     public function simuladorChart(Request $request)
     {
-        $simulation = new Simulator($request->plantsAmount, $request->plots);
+        $simulation = new Simulator($request->plantsAmount, $request->plots, $request->percentageLimit);
         $simulation->simulate();
 
         return view('simulador_chart', compact('simulation'));

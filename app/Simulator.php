@@ -32,13 +32,16 @@ class Simulator
 
     private $plantsAmount;
 
-    public function __construct($plantsAmount, $plots)
+    private $damageLimit;
+
+    public function __construct($plantsAmount, $plots, $damageLimit)
     {
         $this->probability = new ProbabilityNumber();
         $this->Gu = new PseudoRandomNumber(1);
 
         $this->plantsAmount = $plantsAmount;
         $this->plots = $plots;
+        $this->damageLimit = $damageLimit;
 
         $this->periods = collect([
             11 => ['name' => 'Primer Vuelo', 'month' => 'Noviembre'],
@@ -289,5 +292,10 @@ class Simulator
     public function getHighFruitsLossInKg() : float
     {
         return $this->plantsAmount * $this->plots * 7.5 * 8 * ($this->getPropertyPerPeriod('fruitDamaged')[4] / 100);
+    }
+
+    public function isAboveDamageLimit() : float
+    {
+        return round($this->getPropertyPerPeriod('fruitDamaged')[4]) >= $this->damageLimit;
     }
 }

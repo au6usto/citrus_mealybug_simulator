@@ -33,6 +33,16 @@
 </div>
 </div>
 
+<div class="mb-3">
+  <label for="damageLimit">Porcentaje de Daño dispuesto a Asumir</label>
+  <div class="input-group">
+    <input name="damageLimit" type="number" class="form-control" id="damageLimit" placeholder="" required="">
+    <div class="input-group-append">
+      <span class="input-group-text">%</span>
+  </div>
+</div>
+</div>
+
 <hr class="mb-4">
 <button class="btn btn-primary btn-lg btn-block" type="submit">Simular</button>
 </form>
