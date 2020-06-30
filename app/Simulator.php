@@ -213,7 +213,7 @@ class Simulator
 
     private function calculateFruitDamage()
     {
-        $fruitDamaged = (0.7911 * $this->occupiedFruitPercentage - 3.5608) + rand(0, 10);
+        $fruitDamaged = (0.7911 * $this->occupiedFruitPercentage - 3.5608);
         return $fruitDamaged > 0 ? $fruitDamaged : 0;
     }
 
