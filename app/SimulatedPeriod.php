@@ -20,15 +20,15 @@ class SimulatedPeriod
     {
         $this->periodName = $periodName;
         $this->periodMonth = $periodMonth;
-        $this->maleQty = $maleQty;
-        $this->femaleQty = $femaleQty;
-        $this->totalLarvae = $totalLarvae;
-        $this->maleLarvaeQty = $maleLarvaeQty;
-        $this->femaleLarvaeQty = $femaleLarvaeQty;
-        $this->occupiedfruitPercentage = $occupiedfruitPercentage;
-        $this->insectsInCalyx = $insectsInCalyx;
-        $this->eggsTotal = $eggsTotal;
-        $this->temperature = $temperature;
-        $this->fruitDamaged = $fruitDamaged;
+        $this->maleQty = abs($maleQty);
+        $this->femaleQty = abs($femaleQty);
+        $this->totalLarvae = abs($totalLarvae);
+        $this->maleLarvaeQty = abs($maleLarvaeQty);
+        $this->femaleLarvaeQty = abs($femaleLarvaeQty);
+        $this->occupiedfruitPercentage = abs($occupiedfruitPercentage);
+        $this->insectsInCalyx = abs($insectsInCalyx);
+        $this->eggsTotal = abs($eggsTotal);
+        $this->temperature = abs($temperature);
+        $this->fruitDamaged = abs($fruitDamaged);
     }
 }
