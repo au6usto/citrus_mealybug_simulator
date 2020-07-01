@@ -296,9 +296,6 @@ class Simulator
 
     public function isAboveDamageLimit() : bool
     {
-        \Log::info('asdasd');
-        \Log::info($this->getPropertyPerPeriod('fruitDamaged')[4]);
-        \Log::info($this->damageLimit);
         return round($this->getPropertyPerPeriod('fruitDamaged')[4]) >= $this->damageLimit;
     }
 }
