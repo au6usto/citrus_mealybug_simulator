@@ -294,8 +294,11 @@ class Simulator
         return $this->plantsAmount * $this->plots * 7.5 * 8 * ($this->getPropertyPerPeriod('fruitDamaged')[4] / 100);
     }
 
-    public function isAboveDamageLimit() : float
+    public function isAboveDamageLimit() : bool
     {
+        \Log::info('asdasd');
+        \Log::info($this->getPropertyPerPeriod('fruitDamaged')[4]);
+        \Log::info($this->damageLimit);
         return round($this->getPropertyPerPeriod('fruitDamaged')[4]) >= $this->damageLimit;
     }
 }

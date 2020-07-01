@@ -44,7 +44,7 @@ class HomeController extends Controller
 
     public function simuladorChart(Request $request)
     {
-        $simulation = new Simulator($request->plantsAmount, $request->plots, $request->percentageLimit);
+        $simulation = new Simulator($request->plantsAmount, $request->plots, $request->damageLimit);
         $simulation->simulate();
 
         return view('simulador_chart', compact('simulation'));

@@ -4,11 +4,11 @@
 <div class="container">
     <div class="py-5 text-center">
         <img class="d-block mx-auto mb-4" src="<?= url('/') . '/img/mealybug.png' ?>" alt="" >
-        <h2>Simulador de Plantación invadida por Plaga</h2>
+        <h2>Simulador de Plantación Invadida por Cochinillas</h2>
     </div>
     <div class="row">
     <div class="col-md-12 order-md-1">
-      <h4 class="mb-3">Datos de Entrada</h4>
+      <h4 class="mb-3">Datos de Plantación</h4>
     </div>
 </div>
 <form method="POST" action="<?= url('/') . '/resultado_simulador' ?>">
